@@ -1,0 +1,19 @@
+package proyecto1;
+
+import java.util.HashMap;
+
+public class RepositorioPublicaciones {
+	private HashMap <String, Publicacion> listaPublicaciones = new HashMap <String, Publicacion>();
+	private static RepositorioPublicaciones miRepositorio;
+	
+	public RepositorioPublicaciones() {
+		
+	}
+  
+	public RepositorioPublicaciones getMirepositorio() {
+		if (miRepositorio == null) {
+			miRepositorio = new RepositorioPublicaciones();
+		}
+		return miRepositorio;
+	}
+  
