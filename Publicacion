@@ -1,0 +1,24 @@
+package proyecto1;
+
+import java.util.HashMap;
+
+public class Publicacion {
+	private String id;
+	private String titulo;
+	private HashMap<String, Cita> listaCitas;
+	private HashMap<String, Autor> listaAutores;
+	
+	public Publicacion(String pId, String pTitulo) {
+		this.id = pId;
+		this.titulo = pTitulo;
+		// Hay que ver como hacemos la constructora, si cogiendo los datos de los ficheros o no
+	}
+	
+	public HashMap<String, Cita> getListaCitas() {
+		return this.listaCitas;
+	}
+	
+	public HashMap<String, Autor> getListaAutores() {
+		return this.listaAutores;
+	}
+}
