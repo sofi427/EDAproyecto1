@@ -22,12 +22,14 @@ public class Publicacion {
 		return this.listaAutores;
 	}
 
-	public void anadirCita(String pId) {
-		this.listaCitas.put(pId, Cita);
+	public Cita anadirCita(String pId) {
+		return this.listaCitas.put(pId, Cita);  
+			//returns the previous value associated with key, or null if there was no mapping for key
 	}
 
-	public void anadirAutor(String pId, String pNombre) {  //por que hay pNombre?  <--DUDA!!!
-		this.listaAutores.put(pId, Autor);
+	public Autor anadirAutor(String pId, String pNombre) {  		//por que hay pNombre?  <--DUDA!!!
+		return this.listaAutores.put(pId, Autor);
+           //returns the previous value associated with key, or null if there was no mapping for key
 	}
 
 }
