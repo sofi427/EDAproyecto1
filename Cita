@@ -1,2 +1,10 @@
 public class Cita {
+  //atributos
+  private String id;
+  private Publicacion publicacion;
+
+  //constructora
+  public Cita() {     //fichero
+  }
+
 }
