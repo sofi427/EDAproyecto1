@@ -10,10 +10,22 @@ public class RepositorioPublicaciones {
 		
 	}
   
-	public RepositorioPublicaciones getMirepositorio() {
+	public RepositorioPublicaciones getMiRepositorio() {
 		if (miRepositorio == null) {
 			miRepositorio = new RepositorioPublicaciones();
 		}
 		return miRepositorio;
-	}
+
+    public Publicacion buscarPublicación(String pId) {
+		return this.listaPublicaciones.get(pId);
+    }
+
+    public Publicacion borrarPublicacion(Publicacion pPub) {
+		return this.listaPublicaciones.remove(pPub); //el método remove de HashMap devuelve el objeto que borra del mapa
+    }
+
+	public Publicacion anadirPublicacion(int pId, String pTitulo) {
+		return this.listaPublicaciones.put(pId, Publicacion); //put devuelve el valor que habia antes asociado a pId
+    }
+}
   
