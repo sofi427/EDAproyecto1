@@ -21,4 +21,13 @@ public class Publicacion {
 	public HashMap<String, Autor> getListaAutores() {
 		return this.listaAutores;
 	}
+
+	public void anadirCita(String pId) {
+		this.listaCitas.put(pId, Cita);
+	}
+
+	public void anadirAutor(String pId, String pNombre) {  //por que hay pNombre?  <--DUDA!!!
+		this.listaAutores.put(pId, Autor);
+	}
+
 }
