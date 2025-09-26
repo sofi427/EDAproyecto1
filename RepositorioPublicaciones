@@ -14,6 +14,11 @@ public class RepositorioPublicaciones {
 			miRepositorio = new RepositorioPublicaciones();
 		}
 		return miRepositorio;
+	}
+	
+	public HashMap<String, Autor> getListaAutores(int pId){
+		return this.listaPublicaciones.get(pId).getListaAutores();
+	}
 
     public Publicacion buscarPublicación(String pId) {
 		return this.listaPublicaciones.get(pId);
@@ -24,7 +29,12 @@ public class RepositorioPublicaciones {
     }
 
 	public Publicacion anadirPublicacion(int pId, String pTitulo) {
-		return this.listaPublicaciones.put(pId, Publicacion); //put devuelve el valor que habia antes asociado a pId
+		return this.listaPublicaciones.put(pId, Publicacion); //Esto habría que añadirlo desde el documento, osea que hay que cambiar eso
     }
+	
+	// public HashMap<String, Autor> autoresOrdenados() {
+		//HashMap<String, Autor> mapa = new HashMap<String, Autor>();
+		
+		//return mapa;
+	//}
 }
-  
