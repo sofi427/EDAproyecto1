@@ -1,0 +1,18 @@
+package proyecto1;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Scanner {
+
+	
+	public String readFile( String nom ) {  // Básicamente devuelve el siguiente elemento de una lista, como siempre los leeremos de dos en dos 
+		try {                               // no habrá problemas con que se solapen
+			Scanner entrada = new Scanner(new FileReader(nom));  // Hay que preguntar por estos fallos por dios
+			String linea = entrada.nextLine().split(" # "); 
+			return linea;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
