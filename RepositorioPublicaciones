@@ -32,9 +32,9 @@ public class RepositorioPublicaciones {
 		return this.listaPublicaciones.put(pId, Publicacion); //Esto habría que añadirlo desde el documento, osea que hay que cambiar eso
     }
 	
-	// public HashMap<String, Autor> autoresOrdenados() {
-		//HashMap<String, Autor> mapa = new HashMap<String, Autor>();
+	public ArrayList<String> publicacionesOrdenadas() {
+		// post: devuelve una lista ordenada alfabéticamente de las publicaciones (por título) 
+		// no modifica la lista de publicaciones original 
 		
-		//return mapa;
-	//}
+	}
 }
