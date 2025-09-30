@@ -3,8 +3,11 @@ package proyecto1;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Scanner {
+public class LectorFichero {
 
+
+public LectorFichero(){
+}
 	
 	public String readFile( String nom ) {  // Básicamente devuelve el siguiente elemento de una lista, como siempre los leeremos de dos en dos 
 		try {                               // no habrá problemas con que se solapen
