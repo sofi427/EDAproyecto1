@@ -6,14 +6,26 @@ import java.util.Scanner;
 
 public class LectorFichero {
 
-
 	public LectorFichero(){}
 	
-	public String readFile( String nom ) {  // Básicamente devuelve el siguiente elemento de una lista, como siempre los leeremos de dos en dos 
-		try {                               // no habrá problemas con que se solapen
-			Scanner entrada = new Scanner(new FileReader(nom));  // Hay que preguntar por estos fallos por dios
-			String linea = entrada.nextLine().split(" # "); 
-			return linea;
+	
+	public String leerPublicaciones(String nom) {  
+		RepositorioPublicaciones rep= RepositorioPublicaciones.getMiRepositorio();
+		try {   
+			Scanner fichero = new Scanner(new FileReader(nom));
+			while (fichero.hasNextLine()) {
+				String[] datos = fichero.nextLine().split(" # "); 
+				String id= datos[1];
+				String titulo= datos[2];
+				rep.anadirPublicacion(id, titulo);
+			
+			}
+				 
+				
+				
+			
+		
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
