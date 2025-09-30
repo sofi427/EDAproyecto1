@@ -8,7 +8,7 @@ public class Autor {
 	
 	public Autor(String pId, String pNombre) {  // esto tenemos que saber si al crear un autor lo haces desde el fichero o como si te llegasen los atributos
 		this.id= pId;
-		this.nombre= pNombre
+		this.nombre= pNombre;
 	}
 	
 	public Map getListaPublicaciones() {
