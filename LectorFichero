@@ -17,10 +17,10 @@ public class LectorFichero {
 	}
 	
 	
-	public String leerPublicaciones(String nom) {  
+	public String leerPublicaciones(String nombreFichero) {  
 		RepositorioPublicaciones rep= RepositorioPublicaciones.getMiRepositorio();
 		try {   
-			Scanner fichero = new Scanner(new FileReader(nom));
+			Scanner fichero = new Scanner(new FileReader(nombreFichero));
 			while (fichero.hasNextLine()) {
 				String[] datos = fichero.nextLine().split(" # "); 
 				String id= datos[1];
