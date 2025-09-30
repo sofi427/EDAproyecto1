@@ -17,7 +17,7 @@ public class LectorFichero {
 	}
 	
 	
-	public String leerPublicaciones(String nombreFichero) {  
+	public void leerPublicaciones(String nombreFichero) {  
 		RepositorioPublicaciones rep= RepositorioPublicaciones.getMiRepositorio();
 		try {   
 			Scanner fichero = new Scanner(new FileReader(nombreFichero));
