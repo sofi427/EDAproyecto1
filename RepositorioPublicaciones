@@ -1,5 +1,5 @@
 package proyecto1;
-import java.util.HashMap;
+import java.util.HashMap; 
 
 public class RepositorioPublicaciones {
 	private HashMap <String, Publicacion> listaPublicaciones = new HashMap <String, Publicacion>();
@@ -9,14 +9,14 @@ public class RepositorioPublicaciones {
 		
 	}
   
-	public RepositorioPublicaciones getMiRepositorio() {
+	public static RepositorioPublicaciones getMiRepositorio() {
 		if (miRepositorio == null) {
 			miRepositorio = new RepositorioPublicaciones();
 		}
 		return miRepositorio;
 	}
 	
-	public HashMap<String, Autor> getListaAutores(int pId){
+	public HashMap<String, Autor> getListaAutores(String pId){
 		return this.listaPublicaciones.get(pId).getListaAutores();
 	}
 
@@ -28,7 +28,7 @@ public class RepositorioPublicaciones {
 		return this.listaPublicaciones.remove(pPub); //el método remove de HashMap devuelve el objeto que borra del mapa
     }
 
-	public Publicacion anadirPublicacion(int pId, String pTitulo) {
+	public Publicacion anadirPublicacion(String pId, String pTitulo) {
 		return this.listaPublicaciones.put(pId, Publicacion); //Esto habría que añadirlo desde el documento, osea que hay que cambiar eso
     }
 	
