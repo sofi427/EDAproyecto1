@@ -5,8 +5,16 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class LectorFichero {
+	private static LectorFichero miLector;
 
-	public LectorFichero(){}
+	private LectorFichero(){}
+
+	public static LectorFichero getLector(){
+		if (miLector==null){
+			miLector= new LectorFichero();
+		}
+	return miLector;
+	}
 	
 	
 	public String leerPublicaciones(String nom) {  
