@@ -27,7 +27,7 @@ public class Publicacion {
 	}
 
 	public Autor anadirAutor(String pId, String pNombre) {  		//por que hay pNombre?  <--DUDA!!!
-		return this.listaAutores.put(pId, Autor);
+		return this.listaAutores.put( pId, new Autor(pId, pNombre));
            //returns the previous value associated with key, or null if there was no mapping for key
 	}
 
