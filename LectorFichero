@@ -5,37 +5,46 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class LectorFichero {
+
 	private static LectorFichero miLector;
-
+	
 	private LectorFichero(){}
-
-	public static LectorFichero getLector(){
-		if (miLector==null){
+	
+	public static LectorFichero getLector() {
+		if (miLector==null) {
 			miLector= new LectorFichero();
 		}
-	return miLector;
+		return miLector;
 	}
 	
 	
-	public void leerPublicaciones(String nombreFichero) {  
+	public void leerPublicacionesYAutores(String nom) {  
 		RepositorioPublicaciones rep= RepositorioPublicaciones.getMiRepositorio();
 		try {   
-			Scanner fichero = new Scanner(new FileReader(nombreFichero));
+			Scanner fichero = new Scanner(new FileReader(nom));
 			while (fichero.hasNextLine()) {
 				String[] datos = fichero.nextLine().split(" # "); 
 				String id= datos[1];
-				String titulo= datos[2];
-				rep.anadirPublicacion(id, titulo);
+				String autor= datos[2];
+				rep.anadirPublicacion(id, autor);  //este metodo pide pId y pTitulo no autor
+											//habria que hacer otro metodo para el autor?
 			
 			}
-				 
-				
-				
-			
-		
+	
 		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	// 1 método por cada tipo diferente de fichero
+	public void leerPublicacionesYTitulos(String nom) {  }
+	
+	public void leerPublicacionesYCitas(String nom) { }
+	
+	public void leerAutoresYNombres(String nom) {}
+
+
+	
+	
 }
