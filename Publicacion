@@ -10,7 +10,8 @@ public class Publicacion {
 	public Publicacion(String pId, String pTitulo) {
 		this.id = pId;
 		this.titulo = pTitulo;
-		// Hay que ver como hacemos la constructora, si cogiendo los datos de los ficheros o no
+		this.listaCitas= new HashMap <String, Cita>();
+		this.listaAutores= new HashMap <String, Autor>();
 	}
 	
 	public HashMap<String, Cita> getListaCitas() {
@@ -20,15 +21,27 @@ public class Publicacion {
 	public HashMap<String, Autor> getListaAutores() {
 		return this.listaAutores;
 	}
+	
+	public boolean contieneCita(String pId) {
+		return this.listaCitas.containsKey(pId);
+	}
 
 	public Cita anadirCita(String pId) {
-		return this.listaCitas.put(pId, Cita);  
-			//returns the previous value associated with key, or null if there was no mapping for key
+		if (this.contieneCita(pId)== false) {
+			Cita cita= new Cita(pId);
+			this.listaCitas.put(pId, cita);
+		}
+	}
+	
+	public boolean contieneAutor(String pId) {
+		return this.listaAutores.containsKey(pId);
 	}
 
-	public Autor anadirAutor(String pId, String pNombre) {  		//por que hay pNombre?  <--DUDA!!!
-		return this.listaAutores.put( pId, new Autor(pId, pNombre));
-           //returns the previous value associated with key, or null if there was no mapping for key
-	}
+	public void anadirAutor(String pId, String pNombre) { 
+		if (this.contieneAutor(pId)==false) {
+			Autor autor= new Autor(pId, pNombre);
+			this.listaAutores.put(pId, autor);
+		}
+			}
 
 }
