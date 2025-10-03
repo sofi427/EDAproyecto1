@@ -26,7 +26,7 @@ public class Publicacion {
 		return this.listaCitas.containsKey(pId);
 	}
 
-	public Cita anadirCita(String pId) {
+	public void anadirCita(String pId) {
 		if (this.contieneCita(pId)== false) {
 			Cita cita= new Cita(pId);
 			this.listaCitas.put(pId, cita);
