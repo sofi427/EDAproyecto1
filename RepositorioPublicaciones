@@ -5,9 +5,7 @@ public class RepositorioPublicaciones {
 	private HashMap <String, Publicacion> listaPublicaciones = new HashMap <String, Publicacion>();
 	private static RepositorioPublicaciones miRepositorio;
 	
-	public RepositorioPublicaciones() {
-		
-	}
+	public RepositorioPublicaciones() {}
   
 	public static RepositorioPublicaciones getMiRepositorio() {
 		if (miRepositorio == null) {
@@ -24,17 +22,29 @@ public class RepositorioPublicaciones {
 		return this.listaPublicaciones.get(pId);
     }
 
+    public boolean existePublicacion(String pId) {
+		return this.listaPublicaciones.containsKey(pId);
+    }
+    
     public Publicacion borrarPublicacion(Publicacion pPub) {
 		return this.listaPublicaciones.remove(pPub); //el método remove de HashMap devuelve el objeto que borra del mapa
     }
 
-	public Publicacion anadirPublicacion(String pId, String pTitulo) {
-		return this.listaPublicaciones.put(pId, Publicacion); //Esto habría que añadirlo desde el documento, osea que hay que cambiar eso
+	public void anadirPublicacion(String pId, String pTitulo) {
+		if (this.existePublicacion(pId)==false) {
+			Publicacion pub= new Publicacion(pId, pTitulo);
+			this.listaPublicaciones.put(pId, pub);
+		}
+		//else: ya existe publicacion, no habria que añadirla
+		//podriamos poner que devuelva algun mensaje o algo no se
     }
 	
-	public ArrayList<String> publicacionesOrdenadas() {
-		// post: devuelve una lista ordenada alfabéticamente de las publicaciones (por título) 
-		// no modifica la lista de publicaciones original 
+	
+	
+	
+	// public HashMap<String, Autor> autoresOrdenados() {
+		//HashMap<String, Autor> mapa = new HashMap<String, Autor>();
 		
-	}
+		//return mapa;
+	//}
 }
