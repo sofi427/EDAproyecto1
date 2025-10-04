@@ -22,6 +22,9 @@ public class Publicacion {
 		return this.listaAutores;
 	}
 	
+	public String getId() {
+		return this.id;
+	}
 	public boolean contieneCita(String pId) {
 		return this.listaCitas.containsKey(pId);
 	}
@@ -44,4 +47,18 @@ public class Publicacion {
 		}
 			}
 
+	public HashMap<String, Publicacion> getPublicacionesCitadas() {
+		HashMap<String, Publicacion> lista = new HashMap<String, Publicacion>();
+		Publicacion pubCitada;
+		for(Cita cita : listaCitas.values()) {
+			pubCitada = cita.getPublicacion();
+			lista.put(pubCitada.getId(), pubCitada);
+		}
+		
+		return lista;
+	}
+	
+	public String getTitulo() {
+		return this.titulo;
+	}
 }
