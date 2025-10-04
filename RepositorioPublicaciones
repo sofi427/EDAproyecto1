@@ -1,5 +1,9 @@
 package proyecto1;
-import java.util.HashMap; 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List; 
 
 public class RepositorioPublicaciones {
 	private HashMap <String, Publicacion> listaPublicaciones = new HashMap <String, Publicacion>();
@@ -34,17 +38,49 @@ public class RepositorioPublicaciones {
 		if (this.existePublicacion(pId)==false) {
 			Publicacion pub= new Publicacion(pId, pTitulo);
 			this.listaPublicaciones.put(pId, pub);
+		} else {
+			System.out.println("Esa publicación ya está en la lista"); // Quizás lo suyo sería lanzar un throw cuyo catch esté en el scanner.
 		}
-		//else: ya existe publicacion, no habria que añadirla
-		//podriamos poner que devuelva algun mensaje o algo no se
     }
+	public HashMap<String, Publicacion> getListaPublicacionesCitadas(String pId){
+		return this.listaPublicaciones.get(pId).getPublicacionesCitadas();
+	}
 	
-	
-	
-	
-	// public HashMap<String, Autor> autoresOrdenados() {
-		//HashMap<String, Autor> mapa = new HashMap<String, Autor>();
+	// a partir de aquí es todo para el método getPublicacionesOrdenadas()
+		// es como mucho texto porque aplico el método quickSort para organizarlo, y te tiras un ratillo
 		
-		//return mapa;
-	//}
+		public HashMap<String, Publicacion> getPublicacionesOrdenadas(){
+			List<Publicacion> publicaciones = new ArrayList<Publicacion>(listaPublicaciones.values());
+			quickSort(publicaciones, 0, publicaciones.size() -1);
+			
+			HashMap<String, Publicacion> publicacionesOrdenadas = new LinkedHashMap<String, Publicacion>(); // Esto es básicamente para que el hashMap esté ordenado, no sabéis lo que me ha costado entender esto dejadme dormir ya por favor
+			for(Publicacion pub : publicaciones) {  // Esto ordena todas las publicaciones
+				publicacionesOrdenadas.put(pub.getId(), pub);
+			}
+			return publicacionesOrdenadas;
+		}
+
+		public int partition(List<Publicacion> pLista, int i, int f ) {
+			Publicacion pivote = pLista.get(f);
+			int izq = i;
+			int der = f;
+			
+			while(izq < der) {
+				while(pLista.get(izq).getTitulo().compareToIgnoreCase(pivote.getTitulo()) <= 0) {
+					i++;
+					Collections.swap(pLista, izq, der); // es un método de los lists que intercambia los elementos de las posiciones
+				}
+			}
+			Collections.swap(pLista, i+1, f);
+			return i+1;
+		}
+		
+		public void quickSort(List<Publicacion> pLista, int i, int f) {
+			if(i < f) {
+				int pivote = partition(pLista, i, f);
+				quickSort(pLista, i, pivote - 1);
+				quickSort(pLista, pivote + 1, f);
+			}
+		}
+		
 }
