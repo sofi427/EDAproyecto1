@@ -6,8 +6,9 @@ public class Cita {
   private Publicacion publicacion;
 
   //constructora
-  public Cita(String pId) {
+  public Cita(String pId, Publicacion pPublicacion) {
 	  this.id= pId;
+	  this.publicacion = pPublicacion;
   }
   
   public Publicacion getPublicacion() {
