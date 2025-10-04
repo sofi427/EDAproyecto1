@@ -24,24 +24,25 @@ public class Publicacion {
 	
 	public String getId() {
 		return this.id;
-	}
-	public boolean contieneCita(String pId) {
-		return this.listaCitas.containsKey(pId);
-	}
+	} 
+	
+	//public boolean contieneCita(String pId) {   Esto hace una llamada a un método de manera innecesaria
+		//return this.listaCitas.containsKey(pId);
+	//}
 
-	public void anadirCita(String pId) {
-		if (this.contieneCita(pId)== false) {
-			Cita cita= new Cita(pId);
+	public void anadirCita(String pId, Publicacion pPublicacion) {
+		if (this.listaCitas.containsKey(pId) == false) {
+			Cita cita= new Cita(pId, pPublicacion);
 			this.listaCitas.put(pId, cita);
 		}
 	}
 	
-	public boolean contieneAutor(String pId) {
-		return this.listaAutores.containsKey(pId);
-	}
+	//public boolean contieneAutor(String pId) { Esto hace una llamada a un método de manera innecesaria
+		//return;
+	//}
 
 	public void anadirAutor(String pId, String pNombre) { 
-		if (this.contieneAutor(pId)==false) {
+		if (this.listaAutores.containsKey(pId) == false) {
 			Autor autor= new Autor(pId, pNombre);
 			this.listaAutores.put(pId, autor);
 		}
