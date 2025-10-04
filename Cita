@@ -9,5 +9,9 @@ public class Cita {
   public Cita(String pId) {
 	  this.id= pId;
   }
+  
+  public Publicacion getPublicacion() {
+	  return this.publicacion;
+  }
 
 }
