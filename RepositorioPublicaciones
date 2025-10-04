@@ -25,17 +25,13 @@ public class RepositorioPublicaciones {
     public Publicacion buscarPublicación(String pId) {
 		return this.listaPublicaciones.get(pId);
     }
-
-    public boolean existePublicacion(String pId) {
-		return this.listaPublicaciones.containsKey(pId);
-    }
     
     public Publicacion borrarPublicacion(Publicacion pPub) {
 		return this.listaPublicaciones.remove(pPub); //el método remove de HashMap devuelve el objeto que borra del mapa
     }
 
 	public void anadirPublicacion(String pId, String pTitulo) {
-		if (this.existePublicacion(pId)==false) {
+		if (!this.listaPublicaciones.containsKey(pId)) {
 			Publicacion pub= new Publicacion(pId, pTitulo);
 			this.listaPublicaciones.put(pId, pub);
 		} else {
@@ -92,4 +88,3 @@ public class RepositorioPublicaciones {
 		}
 		
 }
-
