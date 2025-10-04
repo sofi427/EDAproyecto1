@@ -1,0 +1,34 @@
+package proyecto1;
+
+
+public class Main {
+    public static void main(String[] args) {
+    	Teclado teclado = new Teclado();
+    	String comando;
+    	
+    	System.out.println("===Consola de comandos===");
+    	System.out.println("Escribir salir para terminar");
+    	
+    	while(true) {
+    		System.out.println("> ");
+    		comando = teclado.getScanner().nextLine().trim().toLowerCase();
+    		
+    		if (comando.equals("salir")) {
+    			System.out.println("Saliendo del programa...");
+    			break;
+    		}
+    		switch(comando) {
+    		case "comandos":
+    			System.out.println("Estos son los comandos que reconoce la consola: ");
+    			System.out.println();
+    			break;
+    		case "adios": 
+    			System.out.println("Adios mundo");
+    			break;
+    		}
+
+    			
+    		
+    	}
+    }
+}
