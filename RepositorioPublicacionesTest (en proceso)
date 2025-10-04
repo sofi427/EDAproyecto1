@@ -1,0 +1,107 @@
+package proyecto1;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class RepositorioPublicacionesTest {
+	Publicacion p1;
+	RepositorioPublicaciones rep;
+	
+@Before
+	public void setUp() throws Exception {
+		rep=RepositorioPublicaciones.getMiRepositorio();
+		p1= new Publicacion("id1","titulo1");
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		rep=null;
+		p1=null;
+	}
+
+	@Test
+	public void testBuscarPublicación() {
+		//1º caso: Lista vacía
+		assertNull(rep.buscarPublicación("id"));
+		//2º caso: Lista con un solo elemento
+			//2.1: Es el elemento de la lista
+			rep.anadirPublicacion("id1","titulo1");
+			assertEquals(rep.buscarPublicación("id1"),p1);
+			//2.2: No es el elemento de la lista
+		//3º caso : Lista con varios elementos
+			//3.1: No está en la lista
+			//3.2: Es el primer elemento
+			// 3.3: Es el último elemento
+			//3.4: Está en la mitad
+	}
+
+
+//	@Test
+	public void testBorrarPublicacion() {
+		//1º caso: Lista vacía
+				//2º caso: Lista con un solo elemento
+					//2.1: Es el elemento de la lista
+					//2.2: No es el elemento de la lista
+				//3º caso : Lista con varios elementos
+					//3.1: No está en la lista
+					//3.2: Es el primer elemento
+					// 3.3: Es el último elemento
+					//3.4: Está en la mitad
+	}
+
+//	@Test
+	public void testAnadirPublicacion() {
+		//1º caso: Lista vacía
+		//2º caso: Lista con un solo elemento
+			//2.1: Es el elemento de la lista
+			//2.2: No es el elemento de la lista
+		//3º caso : Lista con varios elementos
+			//3.1: No está en la lista
+			//3.2: Ya está en la lista
+	}
+
+//	@Test
+	public void testAnadirAutor() {
+		//1º caso: Lista vacía
+				//2º caso: Lista con un solo elemento
+					//2.1: Es el elemento de la lista
+					//2.2: No es el elemento de la lista
+				//3º caso : Lista con varios elementos
+					//3.1: No está en la lista
+					//3.2: Ya está en la lista
+	}
+
+//	@Test
+	public void testAnadirCita() {
+		//1º caso: Lista vacía
+				//2º caso: Lista con un solo elemento
+					//2.1: Es el elemento de la lista
+					//2.2: No es el elemento de la lista
+				//3º caso : Lista con varios elementos
+					//3.1: No está en la lista
+					//3.2: Ya está en la lista
+	}
+
+//	@Test
+	public void testGetPublicacionesOrdenadas() {
+		//1º caso: Lista vacía
+		//2º caso: Lista con un solo elemento
+		//3º caso : Lista con varios elementos
+			//3.1: Todo letras
+			//3.2: Letras + carácteres especiales
+	}
+
+	//@Test
+	public void testPartition() {
+		fail("Not yet implemented");
+	}
+
+//	@Test
+	public void testQuickSort() {
+		fail("Not yet implemented");
+	}
+
+}
