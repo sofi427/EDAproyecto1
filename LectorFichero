@@ -2,49 +2,119 @@ package proyecto1;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LectorFichero {
 
-	private static LectorFichero miLector;
-	
-	private LectorFichero(){}
-	
-	public static LectorFichero getLector() {
-		if (miLector==null) {
-			miLector= new LectorFichero();
-		}
-		return miLector;
-	}
-	
-	
-	public void leerPublicacionesYAutores(String nom) {  
-		RepositorioPublicaciones rep= RepositorioPublicaciones.getMiRepositorio();
-		try {   
-			Scanner fichero = new Scanner(new FileReader(nom));
-			while (fichero.hasNextLine()) {
-				String[] datos = fichero.nextLine().split(" # "); 
-				String id= datos[1];
-				String autor= datos[2];
-				rep.anadirPublicacion(id, autor);  //este metodo pide pId y pTitulo no autor
-											//habria que hacer otro metodo para el autor?
-			
-			}
-	
-		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	// 1 método por cada tipo diferente de fichero
-	public void leerPublicacionesYTitulos(String nom) {  }
-	
-	public void leerPublicacionesYCitas(String nom) { }
-	
-	public void leerAutoresYNombres(String nom) {}
+    private static LectorFichero miLector;
 
+    private HashMap<String, ArrayList<String>> publicacionesAutores;
+    private HashMap<String, String> publicacionesTitulos;
+    private HashMap<String, ArrayList<String>> publicacionesCitas;
+    private HashMap<String, String> autoresNombres;                   
 
-	
-	
+    private LectorFichero() {
+        publicacionesAutores = new HashMap<>();
+        publicacionesTitulos = new HashMap<>();
+        publicacionesCitas = new HashMap<>();
+        autoresNombres = new HashMap<>();
+    }
+
+    public static LectorFichero getLector() {
+        if (miLector == null) {
+            miLector = new LectorFichero();
+        }
+        return miLector;
+    }
+
+    public void leerPublicacionesYAutores(String nom) {
+        try (Scanner fichero = new Scanner(new FileReader(nom))) {   //no hace falta fichero.close() al poner el new dentro del try()
+            while (fichero.hasNextLine()) {
+                String linea = fichero.nextLine();
+                String[] datos = linea.split(" # ");
+                if (datos.length == 2) {
+                    String idPublicacion = datos[0];
+                    String idAutor = datos[1];
+
+                    if (!publicacionesAutores.containsKey(idPublicacion)) {
+                        publicacionesAutores.put(idPublicacion, new ArrayList<>());
+                    }
+                    publicacionesAutores.get(idPublicacion).add(idAutor);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void leerPublicacionesYTitulos(String nom) {
+        try (Scanner fichero = new Scanner(new FileReader(nom))) {
+            while (fichero.hasNextLine()) {
+                String linea = fichero.nextLine();
+                String[] datos = linea.split(" # ");
+                if (datos.length == 2) {
+                    String idPublicacion = datos[0];
+                    String titulo = datos[1];
+                    publicacionesTitulos.put(idPublicacion, titulo);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void leerPublicacionesYCitas(String nom) {
+        try (Scanner fichero = new Scanner(new FileReader(nom))) {
+            while (fichero.hasNextLine()) {
+                String linea = fichero.nextLine();
+                String[] datos = linea.split(" # ");
+                if (datos.length == 2) {
+                    String idPublicacion = datos[0];
+                    String idCita = datos[1];
+
+                    if (!publicacionesCitas.containsKey(idPublicacion)) {
+                        publicacionesCitas.put(idPublicacion, new ArrayList<>());
+                    }
+                    publicacionesCitas.get(idPublicacion).add(idCita);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void leerAutoresYNombres(String nom) {
+        try (Scanner fichero = new Scanner(new FileReader(nom))) {
+            while (fichero.hasNextLine()) {
+                String linea = fichero.nextLine();
+                String[] datos = linea.split(" # ");
+                if (datos.length == 2) {
+                    String idAutor = datos[0];
+                    String nombre = datos[1];
+                    autoresNombres.put(idAutor, nombre);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public HashMap<String, ArrayList<String>> getPublicacionesAutores() {
+        return publicacionesAutores;
+    }
+
+    public HashMap<String, String> getPublicacionesTitulos() {
+        return publicacionesTitulos;
+    }
+
+    public HashMap<String, ArrayList<String>> getPublicacionesCitas() {
+        return publicacionesCitas;
+    }
+
+    public HashMap<String, String> getAutoresNombres() {
+        return autoresNombres;
+    }
 }
+
