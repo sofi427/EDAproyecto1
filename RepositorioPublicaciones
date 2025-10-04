@@ -46,6 +46,14 @@ public class RepositorioPublicaciones {
 		return this.listaPublicaciones.get(pId).getPublicacionesCitadas();
 	}
 	
+	public void anadirAutor(String pIdPublicacion, String pIdAutor, String pTitulo) {
+		this.listaPublicaciones.get(pIdPublicacion).anadirAutor(pIdAutor, pTitulo);
+	}
+	
+	public void anadirCita(String pIdPublicacion, String pIdCita, Publicacion pPublicacion) {
+		this.listaPublicaciones.get(pIdPublicacion).anadirCita(pIdCita, pPublicacion);
+	}
+	
 	// a partir de aquí es todo para el método getPublicacionesOrdenadas()
 		// es como mucho texto porque aplico el método quickSort para organizarlo, y te tiras un ratillo
 		
@@ -84,3 +92,4 @@ public class RepositorioPublicaciones {
 		}
 		
 }
+
