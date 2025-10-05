@@ -72,7 +72,7 @@ public class Publicacion {
 
 	    sb.append("Autores:\n");
 	    for (Entry<String, Autor> autor : this.listaAutores.entrySet()) {
-	        sb.append("  - ").append(autor.getKey()).append(": ").append(autor.getValue()).append("\n");
+	        sb.append("  - ").append(autor.getValue()).append("\n"); 
 	    }
 
 	    sb.append("Citas:\n");
