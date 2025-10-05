@@ -64,7 +64,7 @@ public class Publicacion {
 	}
 
 @Override
-	public String toString() {
+	public String toString() {    //EN DUDA
 	    return "Título: " + this.titulo + ", Autores: " + this.listaAutores.size() + ", Citas: " + this.listaCitas.size();
 	}
 }
