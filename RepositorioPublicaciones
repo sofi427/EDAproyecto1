@@ -101,10 +101,10 @@ public class RepositorioPublicaciones {
 		
 		// A partir de aquí se trata de escribir en un documento de texto toda la información del repositorio
 
-		public void actualizarFicheros(String pNombreFichero, HashMap<String, Publicacion> pRepositorio) {
+		public void actualizarFicheros(String pNombreFichero) {
 			try {
 				PrintWriter writer = new PrintWriter(pNombreFichero, "UTF-8");
-				for (Map.Entry<String, Publicacion> entry : pRepositorio.entrySet()) {
+				for (Map.Entry<String, Publicacion> entry : this.listaPublicaciones.entrySet()) {
 					writer.println(entry.getKey() + ": " + entry.getValue());
 				}	
             	writer.close();
