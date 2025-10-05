@@ -63,8 +63,24 @@ public class Publicacion {
 		return this.titulo;
 	}
 
-@Override
-	public String toString() {    //EN DUDA
-	    return "Título: " + this.titulo + ", Autores: " + this.listaAutores.size() + ", Citas: " + this.listaCitas.size();
+	@Override
+	public String toString() {
+	    StringBuilder sb = new StringBuilder();
+
+	    sb.append("ID: ").append(this.id).append("\n");
+	    sb.append("Título: ").append(this.titulo).append("\n");
+
+	    sb.append("Autores:\n");
+	    for (Entry<String, Autor> autor : this.listaAutores.entrySet()) {
+	        sb.append("  - ").append(autor.getKey()).append(": ").append(autor.getValue()).append("\n");
+	    }
+
+	    sb.append("Citas:\n");
+	    for (Map.Entry<String, Cita> cita : this.listaCitas.entrySet()) {
+	        Publicacion citada = cita.getValue().getPublicacion();
+	        sb.append("  - ").append(citada.getId()).append(": ").append(citada.getTitulo()).append("\n");
+	    }
+
+	    return sb.toString();
 	}
 }
