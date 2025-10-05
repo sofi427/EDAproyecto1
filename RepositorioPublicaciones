@@ -1,9 +1,12 @@
 package proyecto1;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List; 
+import java.util.List;
+import java.util.Map; 
 
 public class RepositorioPublicaciones {
 	private HashMap <String, Publicacion> listaPublicaciones = new HashMap <String, Publicacion>();
@@ -19,23 +22,28 @@ public class RepositorioPublicaciones {
 	}
 	
 	public HashMap<String, Autor> getListaAutores(String pId){
-		return this.listaPublicaciones.get(pId).getListaAutores();
-	}
-	
-	public HashMap<String, Publicacion> getListaPublicaciones(){
-		return this.listaPublicaciones;
+		if(listaPublicaciones.containsKey(pId) == false) {
+			return null;
+		} else {
+			return this.listaPublicaciones.get(pId).getListaAutores();
+		}
+
 	}
 
-    public Publicacion buscarPublicacion(String pId) {
+    public Publicacion buscarPublicación(String pId) {
 		return this.listaPublicaciones.get(pId);
     }
+
+    public boolean existePublicacion(String pId) {
+		return this.listaPublicaciones.containsKey(pId);
+    }
     
-    public Publicacion borrarPublicacion(String pId) {
-		return this.listaPublicaciones.remove(pId); //el método remove de HashMap devuelve el objeto que borra del mapa
+    public Publicacion borrarPublicacion(Publicacion pPub) {
+		return this.listaPublicaciones.remove(pPub); //el método remove de HashMap devuelve el objeto que borra del mapa
     }
 
 	public void anadirPublicacion(String pId, String pTitulo) {
-		if (!this.listaPublicaciones.containsKey(pId)) {
+		if (this.existePublicacion(pId)==false) {
 			Publicacion pub= new Publicacion(pId, pTitulo);
 			this.listaPublicaciones.put(pId, pub);
 		} else {
@@ -46,8 +54,8 @@ public class RepositorioPublicaciones {
 		return this.listaPublicaciones.get(pId).getPublicacionesCitadas();
 	}
 	
-	public void anadirAutor(String pIdPublicacion, String pIdAutor, String pNomAutor) {
-		this.listaPublicaciones.get(pIdPublicacion).anadirAutor(pIdAutor, pNomAutor);
+	public void anadirAutor(String pIdPublicacion, String pIdAutor, String pTitulo) {
+		this.listaPublicaciones.get(pIdPublicacion).anadirAutor(pIdAutor, pTitulo);
 	}
 	
 	public void anadirCita(String pIdPublicacion, String pIdCita, Publicacion pPublicacion) {
@@ -91,4 +99,18 @@ public class RepositorioPublicaciones {
 			}
 		}
 		
+		// A partir de aquí se trata de escribir en un documento de texto toda la información del repositorio
+
+		public void actualizarFicheros(String pNombreFichero, HashMap<String, Publicacion> pRepositorio) {
+			try {
+				PrintWriter writer = new PrintWriter(pNombreFichero, "UTF-8");
+				for (Map.Entry<String, Publicacion> entry : pRepositorio.entrySet()) {
+					writer.println(entry.getKey() + ": " + entry.getValue());
+				}	
+            	writer.close();
+				} catch (IOException e) {
+					System.out.println("Error al crear un fichero");
+					e.printStackTrace();
+			}	
+		}
 }
