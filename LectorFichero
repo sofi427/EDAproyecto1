@@ -10,17 +10,7 @@ public class LectorFichero {
 
     private static LectorFichero miLector;
 
-    private HashMap<String, ArrayList<String>> publicacionesAutores;
-    private HashMap<String, String> publicacionesTitulos;
-    private HashMap<String, ArrayList<String>> publicacionesCitas;
-    private HashMap<String, String> autoresNombres;                   
-
-    private LectorFichero() {
-        publicacionesAutores = new HashMap<>();
-        publicacionesTitulos = new HashMap<>();
-        publicacionesCitas = new HashMap<>();
-        autoresNombres = new HashMap<>();
-    }
+    private LectorFichero() {}
 
     public static LectorFichero getLector() {
         if (miLector == null) {
@@ -29,28 +19,34 @@ public class LectorFichero {
         return miLector;
     }
 
-    public void leerPublicacionesYAutores(String nom) {
-        try (Scanner fichero = new Scanner(new FileReader(nom))) {   //no hace falta fichero.close() al poner el new dentro del try()
+    public HashMap<String, ArrayList<String>> leerPublicacionesYAutores(String nom) {
+        HashMap<String, ArrayList<String>> publicacionesAutores = new HashMap<>();
+
+        try (Scanner fichero = new Scanner(new FileReader(nom))) {
             while (fichero.hasNextLine()) {
                 String linea = fichero.nextLine();
                 String[] datos = linea.split(" # ");
                 if (datos.length == 2) {
                     String idPublicacion = datos[0];
                     String idAutor = datos[1];
-
-                    if (!publicacionesAutores.containsKey(idPublicacion)) {
-                        publicacionesAutores.put(idPublicacion, new ArrayList<>());
-                    }
+                    if (!publicacionesAutores.containsKey(idPublicacion))
+                    {publicacionesAutores.put(idPublicacion, new ArrayList<>());}
                     publicacionesAutores.get(idPublicacion).add(idAutor);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error al leer " + nom);
+        	e.printStackTrace();
         }
+
+        return publicacionesAutores;
     }
 
-    public void leerPublicacionesYTitulos(String nom) {
-        try (Scanner fichero = new Scanner(new FileReader(nom))) {
+
+    public HashMap<String, String> leerPublicacionesYTitulos(String nom) {
+    	HashMap<String, String> publicacionesTitulos = new HashMap<>();
+    	
+    	try (Scanner fichero = new Scanner(new FileReader(nom))) {
             while (fichero.hasNextLine()) {
                 String linea = fichero.nextLine();
                 String[] datos = linea.split(" # ");
@@ -62,11 +58,15 @@ public class LectorFichero {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Error al leer " + nom);
         }
+    	return publicacionesTitulos;
     }
 
-    public void leerPublicacionesYCitas(String nom) {
-        try (Scanner fichero = new Scanner(new FileReader(nom))) {
+    public HashMap<String, ArrayList<String>> leerPublicacionesYCitas(String nom) {
+    	HashMap<String, ArrayList<String>> publicacionesCitas = new HashMap<>();
+    	
+    	try (Scanner fichero = new Scanner(new FileReader(nom))) {
             while (fichero.hasNextLine()) {
                 String linea = fichero.nextLine();
                 String[] datos = linea.split(" # ");
@@ -82,11 +82,15 @@ public class LectorFichero {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Error al leer " + nom);
         }
+    	return publicacionesCitas;
     }
 
-    public void leerAutoresYNombres(String nom) {
-        try (Scanner fichero = new Scanner(new FileReader(nom))) {
+    public HashMap<String, String> leerAutoresYNombres(String nom) {
+    	HashMap<String, String> autoresNombres = new HashMap<>();
+    	
+    	try (Scanner fichero = new Scanner(new FileReader(nom))) {
             while (fichero.hasNextLine()) {
                 String linea = fichero.nextLine();
                 String[] datos = linea.split(" # ");
@@ -98,23 +102,8 @@ public class LectorFichero {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Error al leer " + nom);
         }
-    }
-
-    public HashMap<String, ArrayList<String>> getPublicacionesAutores() {
-        return publicacionesAutores;
-    }
-
-    public HashMap<String, String> getPublicacionesTitulos() {
-        return publicacionesTitulos;
-    }
-
-    public HashMap<String, ArrayList<String>> getPublicacionesCitas() {
-        return publicacionesCitas;
-    }
-
-    public HashMap<String, String> getAutoresNombres() {
-        return autoresNombres;
+    	return autoresNombres;
     }
 }
-
