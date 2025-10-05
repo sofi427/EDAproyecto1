@@ -1,17 +1,18 @@
 package proyecto1;
-import java.util.Map;
+import java.util.HashMap;
 
 public class Autor {
-	private Map listaPublicaciones;
-	private String id;
+	private HashMap<String, Publicacion> listaPublicaciones; //hay que definir directamente como HashMap para 
+	private String id;										//poder crear la lista vacia en la constructora
 	private String nombre;
 	
-	public Autor(String pId, String pNombre) {  
+	public Autor(String pId, String pNombre) {
 		this.id= pId;
 		this.nombre= pNombre;
+		this.listaPublicaciones = new HashMap<>();
 	}
 	
-	public Map getListaPublicaciones() {
+	public HashMap<String, Publicacion> getListaPublicaciones() {
 		return this.listaPublicaciones;
 	}
 	
