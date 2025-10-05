@@ -21,6 +21,10 @@ public class RepositorioPublicaciones {
 	public HashMap<String, Autor> getListaAutores(String pId){
 		return this.listaPublicaciones.get(pId).getListaAutores();
 	}
+	
+	public HashMap<String, Publicacion> getListaPublicaciones(){
+		return this.listaPublicaciones;
+	}
 
     public Publicacion buscarPublicacion(String pId) {
 		return this.listaPublicaciones.get(pId);
