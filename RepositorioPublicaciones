@@ -54,8 +54,8 @@ public class RepositorioPublicaciones {
 		return this.listaPublicaciones.get(pId).getPublicacionesCitadas();
 	}
 	
-	public void anadirAutor(String pIdPublicacion, String pIdAutor, String pTitulo) {
-		this.listaPublicaciones.get(pIdPublicacion).anadirAutor(pIdAutor, pTitulo);
+	public void anadirAutor(String pIdPublicacion, String pIdAutor, String pNombre) {
+		this.listaPublicaciones.get(pIdPublicacion).anadirAutor(pIdAutor, pNombre);
 	}
 	
 	public void anadirCita(String pIdPublicacion, String pIdCita, Publicacion pPublicacion) {
