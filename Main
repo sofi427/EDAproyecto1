@@ -263,7 +263,7 @@ public class Main {
     	        }
     	    }
     	}
-    	System.out.println("Se han cargado correctamente los datos de los ficheros en el repositorio, se mostrará el resultado en un fichero.");
+    	System.out.println("Se han cargado correctamente los datos de los ficheros en el repositorio, se mostrará el resultado en un fichero  dentro de la carpeta del proyecto.");
     	repositorio.actualizarFicheros("Repositorio-datos-ficheros.txt");
     }
    }
