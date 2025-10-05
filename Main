@@ -46,9 +46,60 @@ public class Main {
     			testNoEstáLaPublicacion();
     			break;
     			
+    		case "listaAutores":
+    			testPublicacionConAutores();
+    			testPublicacionSinAutores();
+    			testPublicacionInexistente();
+    			break;
+    			
+    			
     		}	
     	}
     }
+    
+    
+    // Métodos de prueba de listaAutores
+    
+    private static void testPublicacionInexistente() {
+    	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
+    	
+    	HashMap<String, Autor> autores = repositorio.getListaAutores("3");
+    	
+    	System.out.println("n🔹 Test 3: Publicación inexistente");
+    	System.out.println("Esperando true");
+    	System.out.println("Resultado: " + (autores == null));
+    }
+    
+    private static void testPublicacionConAutores() {
+    	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
+    	repositorio.anadirPublicacion("1", "A");
+    	repositorio.anadirAutor("1", "11", "Naroa");
+    	repositorio.anadirAutor("1", "12", "Sofía");
+
+    	HashMap<String, Autor> autores = repositorio.getListaAutores("1");
+
+        System.out.println("🔹 Test 1: Publicación con autores");
+        System.out.println("Esperado: 2 autores");
+        System.out.println("Resultado: " + autores.size());
+        for (String id : autores.keySet()) {
+            System.out.println("Autor: " + autores.get(id).getNombre());
+        }
+    }
+        
+
+    private static void testPublicacionSinAutores() {
+    	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
+        repositorio.anadirPublicacion("1", "A");
+
+        HashMap<String, Autor> autores = repositorio.getListaAutores("1");
+
+        System.out.println("\n🔹 Test 2: Publicación sin autores");
+        System.out.println("Esperado: 0 autores");
+        System.out.println("Resultado: " + autores.size());
+    }
+
+
+  
     
     // Métodos de prueba de ListaPublicacionesCitadas
     
@@ -66,7 +117,7 @@ public class Main {
     	repositorio.anadirPublicacion("2", "B");
     	repositorio.anadirPublicacion("3", "C");
     	Publicacion publi = new Publicacion("2", "B");
-    	repositorio.buscarPublicacion("2").anadirCita("4", publi);
+    	repositorio.buscarPublicación("2").anadirCita("4", publi);
     	System.out.println("Deberá devolver 1 puesto que solo hay una cita añadida: " + repositorio.getListaPublicacionesCitadas("2").size());
     }
     
@@ -76,9 +127,9 @@ public class Main {
     	repositorio.anadirPublicacion("2", "B");
     	repositorio.anadirPublicacion("3", "C");
     	Publicacion publi = new Publicacion("2", "B");
-    	repositorio.buscarPublicacion("2").anadirCita("4", publi);
+    	repositorio.buscarPublicación("2").anadirCita("4", publi);
     	Publicacion publi2 = new Publicacion("3", "C");
-    	repositorio.buscarPublicacion("2").anadirCita("5", publi2);
+    	repositorio.buscarPublicación("2").anadirCita("5", publi2);
     	System.out.println("Deberá devolver 2 puesto que solo hay varias citas añadidas: " + repositorio.getListaPublicacionesCitadas("2").size());
     }
     
@@ -87,13 +138,13 @@ public class Main {
     private static void testNoHayPublicaciones() {
     	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
     	Publicacion publicacion = new Publicacion("1", "A");
-    	System.out.println("El resultado debe de ser null y es: " +  repositorio.buscarPublicacion(publicacion.getId()));
+    	System.out.println("El resultado debe de ser null y es: " +  repositorio.buscarPublicación(publicacion.getId()));
     }
     
     private static void testSoloEstaLaPublicacion() {
     	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
     	repositorio.anadirPublicacion("1", "A");
-    	Publicacion publicacionABuscar = repositorio.buscarPublicacion("1");
+    	Publicacion publicacionABuscar = repositorio.buscarPublicación("1");
     	System.out.println("El resultado debe ser el de una publicación con ID = 1 y es: " + publicacionABuscar.getId());
     }
     
@@ -102,7 +153,7 @@ public class Main {
     	repositorio.anadirPublicacion("1", "A");
     	repositorio.anadirPublicacion("2", "B");
     	repositorio.anadirPublicacion("3", "C");
-    	System.out.println("El resultado debería ser null puesto que la publicacion no está y es: " + repositorio.buscarPublicacion("4"));
+    	System.out.println("El resultado debería ser null puesto que la publicacion no está y es: " + repositorio.buscarPublicación("4"));
 
     }
     
@@ -111,7 +162,7 @@ public class Main {
     	repositorio.anadirPublicacion("1", "A");
     	repositorio.anadirPublicacion("2", "B");
     	repositorio.anadirPublicacion("3", "C");
-    	System.out.println("El resultado debería ser 2 B puesto que la publicacion no está y es: ID:  " + repositorio.buscarPublicación("2").getId() + " Título: " + repositorio.buscarPublicacion("2").getTitulo());
+    	System.out.println("El resultado debería ser 2 B puesto que la publicacion no está y es: ID:  " + repositorio.buscarPublicación("2").getId() + " Título: " + repositorio.buscarPublicación("2").getTitulo());
     }
     
     private static void testPublicacionAlFinal() {
@@ -119,7 +170,7 @@ public class Main {
     	repositorio.anadirPublicacion("1", "A");
     	repositorio.anadirPublicacion("2", "B");
     	repositorio.anadirPublicacion("3", "C");
-    	System.out.println("El resultado debería ser 3 C puesto que la publicación está al final y es: ID: " + repositorio.buscarPublicacion("3").getId() + " Título: " + repositorio.buscarPublicacion("3").getTitulo());
+    	System.out.println("El resultado debería ser 3 C puesto que la publicación está al final y es: ID: " + repositorio.buscarPublicación("3").getId() + " Título: " + repositorio.buscarPublicación("3").getTitulo());
     }
     
     // Casos de prueba del método publicacionesOrdenadas
