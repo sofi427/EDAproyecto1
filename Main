@@ -87,7 +87,7 @@ public class Main {
     private static void testNoHayPublicaciones() {
     	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
     	Publicacion publicacion = new Publicacion("1", "A");
-    	System.out.println("El resultado debe de ser null y es: " +  repositorio.buscarPublicación(publicacion.getId()));
+    	System.out.println("El resultado debe de ser null y es: " +  repositorio.buscarPublicacion(publicacion.getId()));
     }
     
     private static void testSoloEstaLaPublicacion() {
