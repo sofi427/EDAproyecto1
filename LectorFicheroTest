@@ -1,1 +1,97 @@
-//esta en proceso :D (Sofinu)
+package proyecto1;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class LectorFicheroTest {
+	
+	LectorFichero lector = LectorFichero.getLector();
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void testLeerPublicacionesYAutores() {
+        HashMap<String, ArrayList<String>> lec = lector.leerPublicacionesYAutores("publications-authors-all-final.txt");
+        assertNotNull(lec);
+        //probar que sí lee los datos de la primera línea
+        assertTrue(lec.containsKey("Q101088249"));
+        assertEquals("Q333959", lec.get("Q101088249").get(0));
+        //probar que sí añade más de un autor correctamente
+        assertTrue(lec.containsKey("Q112572095"));
+        assertEquals("Q102312607", lec.get("Q112572095").get(0));
+        assertEquals("Q102339902", lec.get("Q112572095").get(1));
+        assertEquals("Q3751884", lec.get("Q112572095").get(2));
+        assertEquals("Q6831309", lec.get("Q112572095").get(3));
+        
+        //archivo que no existe
+        HashMap<String, ArrayList<String>> lec2 = lector.leerPublicacionesYAutores("no-existe.txt");
+        assertNotNull(lec2);
+        assertTrue(lec2.isEmpty());
+
+	}
+
+	@Test
+	public void testLeerPublicacionesYTitulos() {
+		HashMap<String, String> lec = lector.leerPublicacionesYTitulos("publications-titles-all.txt");
+        assertNotNull(lec);
+        //probar que sí lee los datos de la primera línea
+        assertTrue(lec.containsKey("Q33205611"));
+        assertEquals("Towards two-dimensional electrophoresis mapping of the cerebrospinal fluid proteome from a single individual", lec.get("Q33205611"));
+        
+        //archivo que no existe
+        HashMap<String, String> lec2 = lector.leerPublicacionesYTitulos("no-existe.txt");
+        assertNotNull(lec2);
+        assertTrue(lec2.isEmpty());
+
+
+	}
+
+	@Test
+	public void testLeerPublicacionesYCitas() {
+		HashMap<String, ArrayList<String>> lec = lector.leerPublicacionesYCitas("publications-citedPubs-all.txt");
+        assertNotNull(lec);
+        //probar que sí lee los datos de la primera línea
+        assertTrue(lec.containsKey("Q21136163"));
+        assertEquals("Q24600704", lec.get("Q21136163").get(0));
+        //probar que sí añade más de una cita correctamente
+        assertTrue(lec.containsKey("Q21136185"));
+        assertEquals("Q21735930", lec.get("Q21136185").get(0));
+        assertEquals("Q23781406", lec.get("Q21136185").get(1));
+        assertEquals("Q24324450", lec.get("Q21136185").get(2));
+        assertEquals("Q24536351", lec.get("Q21136185").get(3));
+        
+        //archivo que no existe
+        HashMap<String, ArrayList<String>> lec2 = lector.leerPublicacionesYCitas("no-existe.txt");
+        assertNotNull(lec2);
+        assertTrue(lec2.isEmpty());
+
+	}
+
+	@Test
+	public void testLeerAutoresYNombres() {
+        HashMap<String, String> lec = lector.leerAutoresYNombres("authors-name-all.txt");
+        assertNotNull(lec);
+        //probar que sí lee los datos de la primera línea
+        assertTrue(lec.containsKey("Q547084"));
+        assertEquals("Kevin Thiele", lec.get("Q547084"));
+        
+        //archivo que no existe
+        HashMap<String, String> lec2 = lector.leerAutoresYNombres("no-existe.txt");
+        assertNotNull(lec2);
+        assertTrue(lec2.isEmpty());
+
+	}
+
+}
