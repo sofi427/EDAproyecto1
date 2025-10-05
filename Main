@@ -236,7 +236,7 @@ public class Main {
     	
     	//se añade a cada publicación los autores que le pertenecen a su lista y sus nombres
     	HashMap<String, ArrayList<String>> pubYAutores = lector.leerPublicacionesYAutores("publications-authors-all-final.txt");    
-    	HashMap<String, String> autorYNom = lector.leerAutoresYNombres("authors-names-all.txt");
+    	HashMap<String, String> autorYNom = lector.leerAutoresYNombres("authors-name-all.txt");
     	for(Map.Entry<String, ArrayList<String>> i2 : pubYAutores.entrySet()) {
     		String idPublicacion = i2.getKey();
     		ArrayList<String> listaAutores = i2.getValue();
