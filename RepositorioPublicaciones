@@ -31,7 +31,7 @@ public class RepositorioPublicaciones {
     }
     
     public Publicacion borrarPublicacion(String pId) {
-		return this.listaPublicaciones.remove(this.buscarPublicacion(pId));//el método remove de HashMap devuelve el objeto que borra del mapa
+		return this.listaPublicaciones.remove(pId); //el método remove de HashMap devuelve el objeto que borra del mapa
     }
 
 	public void anadirPublicacion(String pId, String pTitulo) {
