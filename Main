@@ -2,6 +2,7 @@ package proyecto1;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -51,7 +52,10 @@ public class Main {
     			testPublicacionSinAutores();
     			testPublicacionInexistente();
     			break;
-    			
+
+            case "CrearRepositorioDesdeFicheros":
+    			testRepositorioDesdeFicheros();
+    			break;
     			
     		}	
     	}
@@ -218,4 +222,50 @@ public class Main {
     		System.out.println("ID: " + res.getId() + "  Título: " + tit);
         }
     }
+
+    private static void testRepositorioDesdeFicheros() {
+    	LectorFichero lector = LectorFichero.getLector();
+    	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
+    	//primero se añaden las publicaciones al repositorio con su título
+    	HashMap<String, String> pubYTitulo = lector.leerPublicacionesYTitulos("publications-titles-all.txt");
+    	for (Map.Entry<String, String> i1 : pubYTitulo.entrySet()) {
+    	    String id = i1.getKey();
+    	    String titulo = i1.getValue();
+    	    repositorio.anadirPublicacion(id, titulo);
+    	}
+    	
+    	//se añade a cada publicación los autores que le pertenecen a su lista y sus nombres
+    	HashMap<String, ArrayList<String>> pubYAutores = lector.leerPublicacionesYAutores("publications-authors-all-final.txt");    
+    	HashMap<String, String> autorYNom = lector.leerAutoresYNombres("authors-names-all.txt");
+    	for(Map.Entry<String, ArrayList<String>> i2 : pubYAutores.entrySet()) {
+    		String idPublicacion = i2.getKey();
+    		ArrayList<String> listaAutores = i2.getValue();
+
+    		for (String idAutor : listaAutores) {
+    			String nombreAutor = autorYNom.get(idAutor);
+    			if (nombreAutor == null) {
+    				nombreAutor = "Autor desconocido";
+    			}
+    		repositorio.anadirAutor(idPublicacion, idAutor, nombreAutor);
+    	}
+    		
+    	//se añade a la lista de citas de cada publicación las citas leidas del fichero
+    	HashMap<String, ArrayList<String>> pubYCitas = lector.leerPublicacionesYCitas("publications-citedPubs-all.txt");
+
+    	for (Map.Entry<String, ArrayList<String>> i3 : pubYCitas.entrySet()) {
+    	    String idPub = i3.getKey();
+    	    ArrayList<String> listaCitas = i3.getValue();
+
+    	    for (String idCita : listaCitas) {
+    	        Publicacion publicacionCitada = repositorio.buscarPublicación(idCita);
+    	        if (publicacionCitada != null) {
+    	            repositorio.anadirCita(idPub, idCita, publicacionCitada);
+    	        }
+    	    }
+    	}
+    	System.out.println("Se han cargado correctamente los datos de los ficheros en el repositorio, se mostrará el resultado en un fichero.");
+    	repositorio.actualizarFicheros("Repositorio-datos-ficheros.txt");
+    }
+   }
+
 }
