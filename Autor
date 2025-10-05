@@ -16,4 +16,8 @@ public class Autor {
 		return this.listaPublicaciones;
 	}
 	
+	public String getNombre() {
+		return this.nombre;
+	}
+	
 }
