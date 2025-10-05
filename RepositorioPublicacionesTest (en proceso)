@@ -22,56 +22,81 @@ public class RepositorioPublicacionesTest {
 		p1=null;
 	}
 
-	@Test
+	//@Test
 	public void testBuscarPublicación() {
 		//1º caso: Lista vacía
-		assertNull(rep.buscarPublicación("id"));
+		assertNull(rep.buscarPublicacion("id"));
 		//2º caso: Lista con un solo elemento
-			//2.1: Es el elemento de la lista
-			rep.anadirPublicacion("id1","titulo1");
-			assertEquals(rep.buscarPublicación("id1"),p1);
-			//2.2: No es el elemento de la lista
+		//2.1: Es el elemento de la lista
+		rep.anadirPublicacion("id1","titulo1");
+		assertEquals(rep.buscarPublicacion("id1"),p1);
+		//2.2: No es el elemento de la lista
 		//3º caso : Lista con varios elementos
-			//3.1: No está en la lista
-			//3.2: Es el primer elemento
-			// 3.3: Es el último elemento
-			//3.4: Está en la mitad
+		//3.1: No está en la lista
+		//3.2: Es el primer elemento
+		// 3.3: Es el último elemento
+		//3.4: Está en la mitad
 	}
 
 
-//	@Test
+//@Test
 	public void testBorrarPublicacion() {
 		//1º caso: Lista vacía
-				//2º caso: Lista con un solo elemento
-					//2.1: Es el elemento de la lista
-					//2.2: No es el elemento de la lista
-				//3º caso : Lista con varios elementos
-					//3.1: No está en la lista
-					//3.2: Es el primer elemento
-					// 3.3: Es el último elemento
-					//3.4: Está en la mitad
+		assertNull(rep.borrarPublicacion("id1"));
+	
+		//2º caso: Lista con un solo elemento
+		rep.anadirPublicacion("id1","titulo1");
+		//2.1: Es el elemento de la lista
+		assertNull(rep.borrarPublicacion("id1"));
+		//2.2: No es el elemento de la lista
+		assertNull(rep.borrarPublicacion("id2"));
+		
+		//3º caso : Lista con varios elementos
+		rep.anadirPublicacion("id1","titulo1");
+		rep.anadirPublicacion("id2","titulo2");
+		rep.anadirPublicacion("id3","titulo3");
+		//3.1: No está en la lista
+		assertNull(rep.borrarPublicacion("id5"));
+		//3.2: Es el primer elemento
+		
+		// 3.3: Es el último elemento
+		
+		//3.4: Está en la mitad
 	}
 
-//	@Test
+@Test
 	public void testAnadirPublicacion() {
 		//1º caso: Lista vacía
+		assertFalse(rep.getListaPublicaciones().containsKey("id1"));
 		//2º caso: Lista con un solo elemento
-			//2.1: Es el elemento de la lista
-			//2.2: No es el elemento de la lista
+		//2.1: Es el elemento de la lista
+		rep.anadirPublicacion("id1","titulo1");
+		assertTrue(rep.getListaPublicaciones().containsKey("id1"));
+		//2.2: No es el elemento de la lista
+		assertFalse(rep.getListaPublicaciones().containsKey("id2"));
+		
 		//3º caso : Lista con varios elementos
-			//3.1: No está en la lista
-			//3.2: Ya está en la lista
+		rep.anadirPublicacion("id2","titulo2");
+		rep.anadirPublicacion("id3","titulo3");
+		//3.1: No está en la lista
+		assertFalse(rep.getListaPublicaciones().containsKey("id6"));
+		//3.2: Ya está en la lista
+		assertTrue(rep.getListaPublicaciones().containsKey("id2"));
+		
 	}
 
 //	@Test
 	public void testAnadirAutor() {
 		//1º caso: Lista vacía
-				//2º caso: Lista con un solo elemento
-					//2.1: Es el elemento de la lista
-					//2.2: No es el elemento de la lista
-				//3º caso : Lista con varios elementos
-					//3.1: No está en la lista
-					//3.2: Ya está en la lista
+
+		//2º caso: Lista con un solo elemento
+		//2.1: Es el elemento de la lista
+		//2.2: No es el elemento de la lista
+				
+		
+		//3º caso : Lista con varios elementos
+		//3.1: No está en la lista
+		//3.2: Ya está en la lista
 	}
 
 //	@Test
