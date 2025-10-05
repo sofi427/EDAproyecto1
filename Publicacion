@@ -62,4 +62,9 @@ public class Publicacion {
 	public String getTitulo() {
 		return this.titulo;
 	}
+
+@Override
+	public String toString() {
+	    return "Título: " + this.titulo + ", Autores: " + this.listaAutores.size() + ", Citas: " + this.listaCitas.size();
+	}
 }
