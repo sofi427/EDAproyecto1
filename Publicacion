@@ -1,5 +1,6 @@
 package proyecto1;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Publicacion {
 	private String id;
@@ -67,18 +68,27 @@ public class Publicacion {
 	public String toString() {
 	    StringBuilder sb = new StringBuilder();
 
-	    sb.append("ID: ").append(this.id).append("\n");
 	    sb.append("Título: ").append(this.titulo).append("\n");
 
 	    sb.append("Autores:\n");
-	    for (Entry<String, Autor> autor : this.listaAutores.entrySet()) {
-	        sb.append("  - ").append(autor.getValue()).append("\n"); 
+	    if (this.listaAutores.isEmpty()) {
+	        sb.append("  (Sin autores)\n");
+	    } else {
+	        for (Map.Entry<String, Autor> autor : this.listaAutores.entrySet()) {
+	            sb.append("  - ").append(autor.getKey())
+	              .append(": ").append(autor.getValue()).append("\n");
+	        }
 	    }
 
 	    sb.append("Citas:\n");
-	    for (Map.Entry<String, Cita> cita : this.listaCitas.entrySet()) {
-	        Publicacion citada = cita.getValue().getPublicacion();
-	        sb.append("  - ").append(citada.getId()).append(": ").append(citada.getTitulo()).append("\n");
+	    if (this.listaCitas.isEmpty()) {
+	        sb.append("  (Sin citas)\n");
+	    } else {
+	        for (Map.Entry<String, Cita> cita : this.listaCitas.entrySet()) {
+	            Publicacion citada = cita.getValue().getPublicacion();
+	            sb.append("  - ").append(citada.getId())
+	              .append(": ").append(citada.getTitulo()).append("\n");
+	        }
 	    }
 
 	    return sb.toString();
