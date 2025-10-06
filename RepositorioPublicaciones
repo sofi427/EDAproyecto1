@@ -1,4 +1,5 @@
 package proyecto1;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -101,16 +102,16 @@ public class RepositorioPublicaciones {
 		
 		// A partir de aquí se trata de escribir en un documento de texto toda la información del repositorio
 
-		public void actualizarFicheros(String pNombreFichero) {
-			try {
-				PrintWriter writer = new PrintWriter(pNombreFichero, "UTF-8");
-				for (Map.Entry<String, Publicacion> entry : this.listaPublicaciones.entrySet()) {
-					writer.println(entry.getKey() + ": " + entry.getValue());
-				}	
-            	writer.close();
-				} catch (IOException e) {
-					System.out.println("Error al crear un fichero");
-					e.printStackTrace();
-			}	
+		public void actualizarFicheros(String nombreFichero) {
+		    try (PrintWriter writer = new PrintWriter(new FileWriter(nombreFichero))) {
+		        int contador = 0;
+		        for (Map.Entry<String, Publicacion> entry : this.listaPublicaciones.entrySet()) {
+		            if (contador++ > 200) break; // escribe solo las primeras 200 publicaciones
+		            writer.println(entry.getKey() + ": " + entry.getValue());
+		        }
+		        System.out.println("Se han escrito " + contador + " publicaciones en el fichero.");
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 		}
 }
