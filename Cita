@@ -17,6 +17,7 @@ public class Cita {
 
   @Override
   public String toString() {
-      return this.id + " (cita a " + this.publicacion.getId() + "): " + this.publicacion.getTitulo();
-  }
+	    Publicacion citada = this.publicacion;
+	    return this.id + citada.getId() + ": " + citada.getTitulo();
+	}
 }
