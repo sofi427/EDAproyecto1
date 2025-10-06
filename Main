@@ -224,48 +224,60 @@ public class Main {
     }
 
     private static void testRepositorioDesdeFicheros() {
-    	LectorFichero lector = LectorFichero.getLector();
-    	RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
-    	//primero se añaden las publicaciones al repositorio con su título
-    	HashMap<String, String> pubYTitulo = lector.leerPublicacionesYTitulos("publications-titles-all.txt");
-    	for (Map.Entry<String, String> i1 : pubYTitulo.entrySet()) {
-    	    String id = i1.getKey();
-    	    String titulo = i1.getValue();
-    	    repositorio.anadirPublicacion(id, titulo);
-    	}
-    	
-    	//se añade a cada publicación los autores que le pertenecen a su lista y sus nombres
-    	HashMap<String, ArrayList<String>> pubYAutores = lector.leerPublicacionesYAutores("publications-authors-all-final.txt");    
-    	HashMap<String, String> autorYNom = lector.leerAutoresYNombres("authors-name-all.txt");
-    	for(Map.Entry<String, ArrayList<String>> i2 : pubYAutores.entrySet()) {
-    		String idPublicacion = i2.getKey();
-    		ArrayList<String> listaAutores = i2.getValue();
+        LectorFichero lector = LectorFichero.getLector();
+        RepositorioPublicaciones repositorio = new RepositorioPublicaciones();
 
-    		for (String idAutor : listaAutores) {
-    			String nombreAutor = autorYNom.get(idAutor);
-    			if (nombreAutor == null) {
-    				nombreAutor = "Autor desconocido";
-    			}
-    		repositorio.anadirAutor(idPublicacion, idAutor, nombreAutor);
-    	}
-    		
-    	//se añade a la lista de citas de cada publicación las citas leidas del fichero
-    	HashMap<String, ArrayList<String>> pubYCitas = lector.leerPublicacionesYCitas("publications-citedPubs-all.txt");
+        // Añadir publicaciones al repositorio con su título
+        HashMap<String, String> pubYTitulo = lector.leerPublicacionesYTitulos("publications-titles-all.txt");
+        for (Map.Entry<String, String> entry : pubYTitulo.entrySet()) {
+            String id = entry.getKey();
+            String titulo = entry.getValue();
+            repositorio.anadirPublicacion(id, titulo);
+        }
 
-    	for (Map.Entry<String, ArrayList<String>> i3 : pubYCitas.entrySet()) {
-    	    String idPub = i3.getKey();
-    	    ArrayList<String> listaCitas = i3.getValue();
+        // Añadir autores a cada publicación
+        HashMap<String, ArrayList<String>> pubYAutores = lector.leerPublicacionesYAutores("publications-authors-all-final.txt");
+        HashMap<String, String> autorYNom = lector.leerAutoresYNombres("authors-name-all.txt");
 
-    	    for (String idCita : listaCitas) {
-    	        Publicacion publicacionCitada = repositorio.buscarPublicación(idCita);
-    	        if (publicacionCitada != null) {
-    	            repositorio.anadirCita(idPub, idCita, publicacionCitada);
-    	        }
-    	    }
-    	}
-    	System.out.println("Se han cargado correctamente los datos de los ficheros en el repositorio, se mostrará el resultado en un fichero dentro de la carpeta del proyecto.");
-    	repositorio.actualizarFicheros("Repositorio-datos-ficheros.txt");
+        for (Map.Entry<String, ArrayList<String>> entry : pubYAutores.entrySet()) {
+            String idPublicacion = entry.getKey();
+            ArrayList<String> listaAutores = entry.getValue();
+
+            Publicacion pub = repositorio.buscarPublicación(idPublicacion);
+            if (pub == null) {
+                System.out.println("ERROR: la publicación " + idPublicacion + " no existe en el repositorio.");
+                continue; // saltar a la siguiente publicación
+            }
+
+            for (String idAutor : listaAutores) {
+                String nombreAutor = autorYNom.get(idAutor);
+                if (nombreAutor == null) {
+                    nombreAutor = "Autor desconocido";
+                }
+                repositorio.anadirAutor(idPublicacion, idAutor, nombreAutor);
+            }
+        }
+
+        // Añadir citas a cada publicación
+        HashMap<String, ArrayList<String>> pubYCitas = lector.leerPublicacionesYCitas("publications-citedPubs-all.txt");
+
+        for (Map.Entry<String, ArrayList<String>> entry : pubYCitas.entrySet()) {
+            String idPub = entry.getKey();
+            ArrayList<String> listaCitas = entry.getValue();
+
+            for (String idCita : listaCitas) {
+                Publicacion publicacionCitada = repositorio.buscarPublicación(idCita);
+                if (publicacionCitada == null) {
+                    // Crear publicación fantasma
+                    publicacionCitada = new Publicacion(idCita, "Título desconocido");
+                    //no se añade al repositorio
+                }
+                repositorio.anadirCita(idPub, idCita, publicacionCitada);
+            }
+        }
+
+        // Actualizar fichero con la información
+        repositorio.actualizarFicheros("Repositorio-datos-ficheros.txt");
+        System.out.println("Se han cargado correctamente los datos de los ficheros en el repositorio.");
     }
-   }
-
 }
