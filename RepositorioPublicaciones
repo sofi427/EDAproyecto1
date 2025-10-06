@@ -13,7 +13,7 @@ public class RepositorioPublicaciones {
 	private HashMap <String, Publicacion> listaPublicaciones = new HashMap <String, Publicacion>();
 	private static RepositorioPublicaciones miRepositorio;
 	
-	public RepositorioPublicaciones() {}
+	private RepositorioPublicaciones() {}
   
 	public static RepositorioPublicaciones getMiRepositorio() {
 		if (miRepositorio == null) {
@@ -77,7 +77,7 @@ public class RepositorioPublicaciones {
 			return publicacionesOrdenadas;
 		}
 
-		public int partition(List<Publicacion> pLista, int i, int f ) {
+		private int partition(List<Publicacion> pLista, int i, int f ) {
 			Publicacion pivote = pLista.get(f);
 			int izq = i;
 			int der = f;
@@ -92,7 +92,7 @@ public class RepositorioPublicaciones {
 			return i+1;
 		}
 		
-		public void quickSort(List<Publicacion> pLista, int i, int f) {
+		private void quickSort(List<Publicacion> pLista, int i, int f) {
 			if(i < f) {
 				int pivote = partition(pLista, i, f);
 				quickSort(pLista, i, pivote - 1);
